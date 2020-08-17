@@ -101,7 +101,7 @@
             this.cb_game.FormattingEnabled = true;
             this.cb_game.Items.AddRange(new object[] {
             "Sonic",
-            "Sonic 2",
+            "Sonic 2 (Rev1)",
             "Sonic 3",
             "Sonic & Knuckles",
             "Sonic 3 & Knuckles"});
