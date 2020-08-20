@@ -120,21 +120,22 @@
             this.radio_SFX_Random.AutoSize = true;
             this.radio_SFX_Random.Location = new System.Drawing.Point(5, 42);
             this.radio_SFX_Random.Name = "radio_SFX_Random";
-            this.radio_SFX_Random.Size = new System.Drawing.Size(79, 17);
+            this.radio_SFX_Random.Size = new System.Drawing.Size(65, 17);
             this.radio_SFX_Random.TabIndex = 6;
             this.radio_SFX_Random.TabStop = true;
-            this.radio_SFX_Random.Text = "All Random";
+            this.radio_SFX_Random.Text = "Random";
             this.radio_SFX_Random.UseVisualStyleBackColor = true;
+            this.radio_SFX_Random.CheckedChanged += new System.EventHandler(this.radio_SFX_Random_CheckedChanged);
             // 
             // radio_SFX_Same
             // 
             this.radio_SFX_Same.AutoSize = true;
             this.radio_SFX_Same.Location = new System.Drawing.Point(5, 65);
             this.radio_SFX_Same.Name = "radio_SFX_Same";
-            this.radio_SFX_Same.Size = new System.Drawing.Size(66, 17);
+            this.radio_SFX_Same.Size = new System.Drawing.Size(52, 17);
             this.radio_SFX_Same.TabIndex = 7;
             this.radio_SFX_Same.TabStop = true;
-            this.radio_SFX_Same.Text = "All Same";
+            this.radio_SFX_Same.Text = "Same";
             this.radio_SFX_Same.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -188,10 +189,10 @@
             this.radio_Music_Random.AutoSize = true;
             this.radio_Music_Random.Location = new System.Drawing.Point(5, 42);
             this.radio_Music_Random.Name = "radio_Music_Random";
-            this.radio_Music_Random.Size = new System.Drawing.Size(79, 17);
+            this.radio_Music_Random.Size = new System.Drawing.Size(65, 17);
             this.radio_Music_Random.TabIndex = 6;
             this.radio_Music_Random.TabStop = true;
-            this.radio_Music_Random.Text = "All Random";
+            this.radio_Music_Random.Text = "Random";
             this.radio_Music_Random.UseVisualStyleBackColor = true;
             // 
             // radio_Music_Same
@@ -199,10 +200,10 @@
             this.radio_Music_Same.AutoSize = true;
             this.radio_Music_Same.Location = new System.Drawing.Point(5, 65);
             this.radio_Music_Same.Name = "radio_Music_Same";
-            this.radio_Music_Same.Size = new System.Drawing.Size(66, 17);
+            this.radio_Music_Same.Size = new System.Drawing.Size(52, 17);
             this.radio_Music_Same.TabIndex = 7;
             this.radio_Music_Same.TabStop = true;
-            this.radio_Music_Same.Text = "All Same";
+            this.radio_Music_Same.Text = "Same";
             this.radio_Music_Same.UseVisualStyleBackColor = true;
             // 
             // chk_rings
@@ -425,7 +426,7 @@
             this.Controls.Add(this.btn_romselect);
             this.Controls.Add(this.txt_romselect);
             this.Name = "Form1";
-            this.Text = "Sonic Randomizer";
+            this.Text = "Sonic Randomizer 0.2";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.form_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.form_DragEnter);

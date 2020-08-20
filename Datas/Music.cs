@@ -14,10 +14,19 @@ namespace Sonic_Randomizer.Datas
         static public List<Byte[]> original = new List<byte[]>();
         static public int size;
         static public Int32 offset;
+        static public List<int> overide = new List<int>();
 
 
         static public void Initialise(int game)
         {
+            
+            overide.Add(0);
+            overide.Add(5);
+            overide.Add(21);
+            overide.Add(24);
+            overide.Add(26);
+            overide.Add(29);
+
             if(game == 2)
             {
                 offset = 0xF8000;
@@ -70,7 +79,8 @@ namespace Sonic_Randomizer.Datas
                 list.Add(data);
                 data = new byte[] { 0x74, 0xCE };
                 list.Add(data);
-                data = new byte[] { 0x8D, 0xD4 };
+                // Extra Life | CRASH THE GAME
+                //data = new byte[] { 0x8D, 0xD4 };
                 list.Add(data);
                 data = new byte[] { 0x93, 0xD1 };
                 list.Add(data);

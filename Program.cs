@@ -13,6 +13,8 @@ namespace Sonic_Randomizer
         public static BinaryWriter writer;
         public static BinaryReader reader;
 
+        public static bool debug = true;
+
         /// <summary>
         /// Point d'entrée principal de l'application.
         /// </summary>

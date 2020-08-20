@@ -46,6 +46,8 @@ namespace Sonic_Randomizer
             {
 
                 Functions.MessageHandler.ErrorMessage(1);
+                if (Program.debug)
+                    throw;
                 return;
             }
 
@@ -115,6 +117,8 @@ namespace Sonic_Randomizer
             {
 
                 Functions.MessageHandler.ErrorMessage(2);
+                if (Program.debug)
+                    throw;
                 return;
             }
 
@@ -165,6 +169,11 @@ namespace Sonic_Randomizer
             int i;
             for (i = 0; i < s.Length; i++)
                 txt_romselect.Text = s[i];
+        }
+
+        private void radio_SFX_Random_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

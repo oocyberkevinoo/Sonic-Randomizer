@@ -14,7 +14,9 @@ namespace Sonic_Randomizer.Programs
         private int i;
         private int data_size;
         private List<Byte[]> data_list;
+        private List<Byte[]> overide_data_list = new List<Byte[]>();
         private Int32 data_offset;
+        private List<int> overide = new List<int>();
 
         private bool shuffle = false;
         private bool same = false;
@@ -29,6 +31,10 @@ namespace Sonic_Randomizer.Programs
             counter = 0;
             this.shuffle = shuffle;
             this.same = same;
+            if(overide.Count > 0)
+                overide.Clear();
+            if(overide_data_list.Count > 0)
+                overide_data_list.Clear();
             switch (mode)
             {
                 case 1:
@@ -46,9 +52,12 @@ namespace Sonic_Randomizer.Programs
                     else
                     {
                         data_list = Music.list;
+                        
                     }
+                    overide_data_list = Music.original;
                     data_size = Music.size;
                     data_offset = Music.offset;
+                    overide = Music.overide;
                     break;
                 case 3:
                     Rings.Initialise(game);
@@ -115,8 +124,14 @@ namespace Sonic_Randomizer.Programs
             {
                 if (shuffle)
                     i = Functions.DataManager.Shuffle(data_list);
-
-                Functions.DataManager.writeData(data_list[i]);
+                if(overide.Count > 0 && overide.Contains(counter) && shuffle) {
+                    Functions.DataManager.writeData(overide_data_list[counter]);
+                }
+                else
+                {
+                    Functions.DataManager.writeData(data_list[i]);
+                }
+                
                 if (!same)
                     data_list.RemoveAt(i);
 
