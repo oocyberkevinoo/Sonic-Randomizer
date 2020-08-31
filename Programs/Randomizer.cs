@@ -25,7 +25,7 @@ namespace Sonic_Randomizer.Programs
 
 
 
-        public void Initialise(int game, int mode, bool shuffle=false, bool same=false, bool on = true)
+        public void Initialise(int game, int mode, bool shuffle=false, bool same=false, bool on = true, bool lockon = false)
         {
             this.mode = mode;
             counter = 0;
@@ -104,7 +104,12 @@ namespace Sonic_Randomizer.Programs
                 this.shuffle = false;
                 this.same = false;
             }
-                
+
+            // Sonic & Knuckles LockOn Offset Shift
+            if (lockon)
+            {
+                data_offset += 0x00200000;
+            }
             Randomize(on);
 
             
@@ -143,18 +148,24 @@ namespace Sonic_Randomizer.Programs
             
         }
 
-        public void Fixes(int game, int mode, bool on, int value = 0)
+        public void Fixes(int game, int mode, bool on, int value = 0, bool lockon = false)
         {
             Program.writer = new BinaryWriter(File.Open(Program.ROM, FileMode.Open), Encoding.UTF8);
             switch (game)
             {
                 case 2:
-                    Programs.Fixes.Initialise(game, mode, on, value);
-                    
+                    Programs.Fixes.Initialise(game, mode, on, value, lockon);
+
+                    // Knuckles LockOn
+                    int lock_offset = 0x00;
+                    if (lockon)
+                    {
+                        lock_offset = 0x00200000;
+                    }
 
                     for (int i = 0; i < Programs.Fixes.size; i++)
                     {
-                        Program.writer.Seek(Programs.Fixes.offset[i], SeekOrigin.Begin);
+                        Program.writer.Seek(Programs.Fixes.offset[i] + lock_offset, SeekOrigin.Begin);
                         Functions.DataManager.writeData(Programs.Fixes.fixBytes[i]);
                     }
                     

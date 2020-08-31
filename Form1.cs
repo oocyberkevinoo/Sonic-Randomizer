@@ -52,6 +52,7 @@ namespace Sonic_Randomizer
             }
 
             int game = cb_game.SelectedIndex + 1;
+            bool lockon = cb_lockon.Checked;
 
             switch (game)   
             {
@@ -65,53 +66,53 @@ namespace Sonic_Randomizer
             try
             {
                 // SFX Randomizer
-                Randomizer.Initialise(game, 1, radio_SFX_Random.Checked, radio_SFX_Same.Checked);
+                Randomizer.Initialise(game, 1, radio_SFX_Random.Checked, radio_SFX_Same.Checked, true, lockon);
 
                 // Music Randomizer
-                Randomizer.Initialise(game, 2, radio_Music_Random.Checked, radio_Music_Same.Checked);
+                Randomizer.Initialise(game, 2, radio_Music_Random.Checked, radio_Music_Same.Checked, true, lockon);
 
                 // Rings Randomizer
-                Randomizer.Initialise(game, 3, true, false, chk_rings.Checked);
+                Randomizer.Initialise(game, 3, true, false, chk_rings.Checked, lockon);
 
                 // Objects Randomizer
-                Randomizer.Initialise(game, 4, true, false, chk_objects.Checked);
+                Randomizer.Initialise(game, 4, true, false, chk_objects.Checked, lockon);
 
                 // Palet Cycle Randomizer
-                Randomizer.Initialise(game, 5, true, false, chk_paletCycle.Checked);
+                Randomizer.Initialise(game, 5, true, false, chk_paletCycle.Checked, lockon);
 
                 // Palet Randomizer
-                Randomizer.Initialise(game, 6, true, false, chk_palets.Checked);
+                Randomizer.Initialise(game, 6, true, false, chk_palets.Checked, lockon);
 
                 // Monitors Randomizer
-                Randomizer.Initialise(game, 7, true, false, chk_monitors.Checked);
+                Randomizer.Initialise(game, 7, true, false, chk_monitors.Checked, lockon);
 
 
                 // Select Level
-                Randomizer.Fixes(game, 2, chk_levelselect.Checked);
+                Randomizer.Fixes(game, 2, chk_levelselect.Checked, 0, lockon);
 
                 // intro skip
-                Randomizer.Fixes(game, 3, chk_intro.Checked);
+                Randomizer.Fixes(game, 3, chk_intro.Checked, 0, lockon);
 
                 // Checksum Bypass
-                Randomizer.Fixes(game, 1, chk_checksum.Checked);
+                Randomizer.Fixes(game, 1, chk_checksum.Checked, 0, lockon);
 
                 // Super Sonic
-                Randomizer.Fixes(game, 4, chk_superSonic.Checked);
+                Randomizer.Fixes(game, 4, chk_superSonic.Checked, 0, lockon);
 
                 // Debug mode
-                Randomizer.Fixes(game, 5, chk_debug.Checked);
+                Randomizer.Fixes(game, 5, chk_debug.Checked, 0, lockon);
 
                 // SSonic No music
-                Randomizer.Fixes(game, 6, chk_SSonicMusic.Checked);
+                Randomizer.Fixes(game, 6, chk_SSonicMusic.Checked, 0, lockon);
 
                 // SSonic Rings
-                Randomizer.Fixes(game, 7, true, (int)num_SSonicRings.Value);
+                Randomizer.Fixes(game, 7, true, (int)num_SSonicRings.Value, lockon);
 
                 // SSonic Rings Fixed
-                Randomizer.Fixes(game, 8, chk_SSonicRingFix.Checked);
+                Randomizer.Fixes(game, 8, chk_SSonicRingFix.Checked, 0, lockon);
 
                 // Infinite Lifes
-                Randomizer.Fixes(game, 9, chk_lifes.Checked);
+                Randomizer.Fixes(game, 9, chk_lifes.Checked, 0, lockon);
             }
             catch (Exception)
             {

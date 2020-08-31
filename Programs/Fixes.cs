@@ -14,8 +14,9 @@ namespace Sonic_Randomizer.Programs
         static public Int32[] offset;
 
 
-        static public void Initialise(int game, int mode, bool on, int value = 0)
+        static public void Initialise(int game, int mode, bool on, int value = 0, bool lockon = false)
         {
+
             switch (mode)
             {
                 case 1:
