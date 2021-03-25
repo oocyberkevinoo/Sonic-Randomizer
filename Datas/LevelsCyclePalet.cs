@@ -15,12 +15,22 @@ namespace Sonic_Randomizer.Datas
         static public Int32 offset;
 
 
-        static public void Initialise(int game)
+        static public void Initialise(int game, int rev = 0)
         {
             if(game == 2)
             {
+                switch (rev)
+                {
+                    case 0:
+                        offset = 0x19E8;
+                        break;
+                    case 1:
+                        offset = 0x19F4;
+                        break;
+                    default:
+                        break;
+                }
                 
-                offset = 0x19F4;
                 list.Clear();
                 #region Levels List
                 data = new byte[] { 0x00, 0x24 };

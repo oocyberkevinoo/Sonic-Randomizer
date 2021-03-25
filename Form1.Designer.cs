@@ -60,6 +60,8 @@
             this.chk_debug = new System.Windows.Forms.CheckBox();
             this.chk_superSonic = new System.Windows.Forms.CheckBox();
             this.cb_lockon = new System.Windows.Forms.CheckBox();
+            this.cb_revision = new System.Windows.Forms.ComboBox();
+            this.btn_compatible = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -101,12 +103,13 @@
             // 
             this.cb_game.FormattingEnabled = true;
             this.cb_game.Items.AddRange(new object[] {
-            "Sonic (Rev 1)",
-            "Sonic 2 (Rev1)",
-            "Sonic 3"});
+            "Sonic 1 (FIXES ONLY)",
+            "Sonic 2",
+            "Sonic 3 (NOT WORKING)",
+            "Sonic & Knuckles (NOT WORKING)"});
             this.cb_game.Location = new System.Drawing.Point(12, 38);
             this.cb_game.Name = "cb_game";
-            this.cb_game.Size = new System.Drawing.Size(147, 21);
+            this.cb_game.Size = new System.Drawing.Size(127, 21);
             this.cb_game.TabIndex = 5;
             this.cb_game.SelectedIndexChanged += new System.EventHandler(this.cb_game_SelectedIndexChanged);
             // 
@@ -272,9 +275,9 @@
             this.chk_levelselect.AutoSize = true;
             this.chk_levelselect.Location = new System.Drawing.Point(6, 43);
             this.chk_levelselect.Name = "chk_levelselect";
-            this.chk_levelselect.Size = new System.Drawing.Size(85, 17);
+            this.chk_levelselect.Size = new System.Drawing.Size(129, 17);
             this.chk_levelselect.TabIndex = 0;
-            this.chk_levelselect.Text = "Level Select";
+            this.chk_levelselect.Text = "Level Select (A+Start)";
             this.chk_levelselect.UseVisualStyleBackColor = true;
             // 
             // groupBox5
@@ -413,12 +416,36 @@
             // cb_lockon
             // 
             this.cb_lockon.AutoSize = true;
-            this.cb_lockon.Location = new System.Drawing.Point(164, 40);
+            this.cb_lockon.Location = new System.Drawing.Point(220, 40);
             this.cb_lockon.Name = "cb_lockon";
-            this.cb_lockon.Size = new System.Drawing.Size(124, 17);
+            this.cb_lockon.Size = new System.Drawing.Size(67, 17);
             this.cb_lockon.TabIndex = 19;
-            this.cb_lockon.Text = "Knuckles \"Lock On\"";
+            this.cb_lockon.Text = "Lock On";
             this.cb_lockon.UseVisualStyleBackColor = true;
+            this.cb_lockon.CheckedChanged += new System.EventHandler(this.cb_lockon_CheckedChanged);
+            // 
+            // cb_revision
+            // 
+            this.cb_revision.FormattingEnabled = true;
+            this.cb_revision.Items.AddRange(new object[] {
+            "Rev00",
+            "Rev01",
+            "Rev02"});
+            this.cb_revision.Location = new System.Drawing.Point(142, 38);
+            this.cb_revision.Name = "cb_revision";
+            this.cb_revision.Size = new System.Drawing.Size(75, 21);
+            this.cb_revision.TabIndex = 20;
+            this.cb_revision.SelectedIndexChanged += new System.EventHandler(this.cb_revision_SelectedIndexChanged);
+            // 
+            // btn_compatible
+            // 
+            this.btn_compatible.Location = new System.Drawing.Point(430, 342);
+            this.btn_compatible.Name = "btn_compatible";
+            this.btn_compatible.Size = new System.Drawing.Size(166, 23);
+            this.btn_compatible.TabIndex = 21;
+            this.btn_compatible.Text = "Compatibility List";
+            this.btn_compatible.UseVisualStyleBackColor = true;
+            this.btn_compatible.Click += new System.EventHandler(this.btn_compatible_Click);
             // 
             // Form1
             // 
@@ -426,6 +453,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(614, 377);
+            this.Controls.Add(this.btn_compatible);
+            this.Controls.Add(this.cb_revision);
             this.Controls.Add(this.cb_lockon);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -436,7 +465,7 @@
             this.Controls.Add(this.btn_romselect);
             this.Controls.Add(this.txt_romselect);
             this.Name = "Form1";
-            this.Text = "Sonic Randomizer 0.2";
+            this.Text = "Sonic Randomizer 0.3";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.form_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.form_DragEnter);
@@ -489,6 +518,8 @@
         private System.Windows.Forms.CheckBox chk_SSonicRingFix;
         private System.Windows.Forms.CheckBox chk_lifes;
         private System.Windows.Forms.CheckBox cb_lockon;
+        private System.Windows.Forms.ComboBox cb_revision;
+        private System.Windows.Forms.Button btn_compatible;
     }
 }
 

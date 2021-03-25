@@ -15,35 +15,78 @@ namespace Sonic_Randomizer.Datas
         static public Int32 offset;
 
 
-        static public void Initialise(int game)
+        static public void Initialise(int game, int rev = 0)
         {
             if(game == 2)
             {
-               
-                offset = 0x12924;
+                switch (rev)
+                {
+                    case 0:
+                        offset = 0x12950;
+                        break;
+                    case 1:
+                        offset = 0x12924;
+                        break;
+                    default:
+                        break;
+                }
+                
                 list.Clear();
-                #region Monitors List
-                data = new byte[] { 0x00, 0x14 };
-                list.Add(data);
-                data = new byte[] { 0x00, 0x1A };
-                list.Add(data);
-                data = new byte[] { 0x00, 0x30 };
-                list.Add(data);
-                data = new byte[] { 0x00, 0x14 };
-                list.Add(data);
-                data = new byte[] { 0x00, 0x46 };
-                list.Add(data);
-                data = new byte[] { 0x00, 0xBC };
-                list.Add(data);
-                data = new byte[] { 0x01, 0x08 };
-                list.Add(data);
-                data = new byte[] { 0x01, 0x38 };
-                list.Add(data);
-                data = new byte[] { 0x01, 0x82 };
-                list.Add(data);
-                data = new byte[] { 0x03, 0x9A };
-                list.Add(data);
-                #endregion
+                switch (rev)
+                {
+                    case 0:
+                        #region Monitors List Rev 0
+                        data = new byte[] { 0x00, 0x14 };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0x1A };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0x30 };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0x14 };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0x46 };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0x9C };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0xE8 };
+                        list.Add(data);
+                        data = new byte[] { 0x01, 0x18 };
+                        list.Add(data);
+                        data = new byte[] { 0x01, 0x62 };
+                        list.Add(data);
+                        data = new byte[] { 0x03, 0x6E };
+                        list.Add(data);
+                        #endregion
+                        break;
+                    case 1:
+                        #region Monitors List Rev 1
+                        data = new byte[] { 0x00, 0x14 };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0x1A };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0x30 };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0x14 };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0x46 };
+                        list.Add(data);
+                        data = new byte[] { 0x00, 0xBC };
+                        list.Add(data);
+                        data = new byte[] { 0x01, 0x08 };
+                        list.Add(data);
+                        data = new byte[] { 0x01, 0x38 };
+                        list.Add(data);
+                        data = new byte[] { 0x01, 0x82 };
+                        list.Add(data);
+                        data = new byte[] { 0x03, 0x9A };
+                        list.Add(data);
+                        #endregion
+                        break;
+
+                    default:
+                        break;
+                }
+                
                 size = list.Count;
             }
 

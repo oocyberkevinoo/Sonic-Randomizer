@@ -46,6 +46,39 @@ namespace Sonic_Randomizer.Functions
                     buttons = MessageBoxButtons.OK;
                     icon = MessageBoxIcon.Error;
                     break;
+                case 4:
+                    text = "This is not a Sonic compatible Rom file.\n" +
+                        "Please try with another Rom of Sonic 1, 2, 3, &Knuckles, or LockOn version.";
+                    title = "ERROR: ROM not recognized";
+                    buttons = MessageBoxButtons.OK;
+                    icon = MessageBoxIcon.Error;
+                    break;
+                case 5:
+                    text = "Fully compatible:\n" +
+                "- Sonic 2 [Rev 00,01] \n(Rev 00 note: Stage Select glitch whith Super Sonic fix)\n" +
+                "\nFixes only:\n" +
+                "- Sonic 1 [Rev 00] (Stage Select not available)\n" +
+                "\nNot Compatible yet:\n" +
+                "- Sonic 1 [Rev 01]\n"+
+                "- Sonic 3\n" +
+                "- Sonic & Knuckles";
+                    title = "Compatibility";
+                    buttons = MessageBoxButtons.OK;
+                    icon = MessageBoxIcon.Information;
+                    break;
+                case 6:
+                    text = "This ROM's Revision is not fully compatible.\n" +
+                        "Please check the compatibility list for more details.";
+                    title = "Revision not compatible.";
+                    buttons = MessageBoxButtons.OK;
+                    icon = MessageBoxIcon.Warning;
+                    break;
+                case 7:
+                    text = "Lock On technology is partially supported only.\n";
+                    title = "Lock On detected";
+                    buttons = MessageBoxButtons.OK;
+                    icon = MessageBoxIcon.Warning;
+                    break;
                 default:
                     text = "Unknown Error.\n" +
                         "Please report the error to the author.";

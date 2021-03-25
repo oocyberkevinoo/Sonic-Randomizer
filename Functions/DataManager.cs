@@ -19,6 +19,15 @@ namespace Sonic_Randomizer.Functions
             Program.writer.Write(bytes);
         }
 
+        public static Byte[] readData(int length)
+        {
+            return Program.reader.ReadBytes(length);
+        }
+        public static Byte readData()
+        {
+            return Program.reader.ReadByte();
+        }
+
 
         public static int Shuffle(List<Byte[]> data)
         {

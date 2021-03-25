@@ -17,7 +17,7 @@ namespace Sonic_Randomizer.Datas
         static public List<int> overide = new List<int>();
 
 
-        static public void Initialise(int game)
+        static public void Initialise(int game, int rev = 0)
         {
             
             overide.Add(0);

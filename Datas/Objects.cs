@@ -16,7 +16,7 @@ namespace Sonic_Randomizer.Datas
         static public Int32 offset;
 
 
-        static public void Initialise(int game)
+        static public void Initialise(int game, int rev = 0)
         {
             if(game == 2)
             {

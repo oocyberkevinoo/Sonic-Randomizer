@@ -25,7 +25,7 @@ namespace Sonic_Randomizer.Programs
 
 
 
-        public void Initialise(int game, int mode, bool shuffle=false, bool same=false, bool on = true, bool lockon = false)
+        public void Initialise(int game, int mode, bool shuffle=false, bool same=false, bool on = true, bool lockon = false, int rev = 0)
         {
             this.mode = mode;
             counter = 0;
@@ -38,13 +38,13 @@ namespace Sonic_Randomizer.Programs
             switch (mode)
             {
                 case 1:
-                    SFX.Initialise(game);
+                    SFX.Initialise(game, rev);
                     data_list = SFX.list;
                     data_size = SFX.size;
                     data_offset = SFX.offset;
                     break;
                 case 2:
-                    Music.Initialise(game);
+                    Music.Initialise(game, rev);
                     if(!shuffle && !same)
                     {
                         data_list = Music.original;
@@ -60,13 +60,13 @@ namespace Sonic_Randomizer.Programs
                     overide = Music.overide;
                     break;
                 case 3:
-                    Rings.Initialise(game);
+                    Rings.Initialise(game, rev);
                     data_list = Rings.list;
                     data_size = Rings.size;
                     data_offset = Rings.offset;
                     break;
                 case 4:
-                    Objects.Initialise(game);
+                    Objects.Initialise(game, rev);
                     if (!on)
                     {
                         data_list = Objects.original;
@@ -79,19 +79,19 @@ namespace Sonic_Randomizer.Programs
                     data_offset = Objects.offset;
                     break;
                 case 5:
-                    LevelsCyclePalet.Initialise(game);
+                    LevelsCyclePalet.Initialise(game, rev);
                     data_list = LevelsCyclePalet.list;
                     data_size = LevelsCyclePalet.size;
                     data_offset = LevelsCyclePalet.offset;
                     break;
                 case 6:
-                    LevelsPalet.Initialise(game);
+                    LevelsPalet.Initialise(game, rev);
                     data_list = LevelsPalet.list;
                     data_size = LevelsPalet.size;
                     data_offset = LevelsPalet.offset;
                     break;
                 case 7:
-                    Monitors.Initialise(game);
+                    Monitors.Initialise(game, rev);
                     data_list = Monitors.list;
                     data_size = Monitors.size;
                     data_offset = Monitors.offset;
@@ -148,49 +148,90 @@ namespace Sonic_Randomizer.Programs
             
         }
 
-        public void Fixes(int game, int mode, bool on, int value = 0, bool lockon = false)
+        public void Fixes(int game, int mode, bool on, int value = 0, bool lockon = false, int rev = 0)
         {
             Program.writer = new BinaryWriter(File.Open(Program.ROM, FileMode.Open), Encoding.UTF8);
             int lock_offset = 0x00;
-            switch (game)
+            if (lockon)
             {
-                
-                case 1: // Sonic The Hedgehog Rev 1
-                    Programs.Fixes.Initialise(game, mode, on, value, lockon);
-
-                    // Knuckles LockOn
-                    if (lockon)
-                    {
-                        lock_offset = 0x00200000;
-                    }
-
-                    for (int i = 0; i < Programs.Fixes.size; i++)
-                    {
-                        Program.writer.Seek(Programs.Fixes.offset[i] + lock_offset, SeekOrigin.Begin);
-                        Functions.DataManager.writeData(Programs.Fixes.fixBytes[i]);
-                    }
-
-                    break;
-                case 2: // Sonic The Hedgehog 2 Rev 2
-                    Programs.Fixes.Initialise(game, mode, on, value, lockon);
-
-                    // Knuckles LockOn
-                    if (lockon)
-                    {
-                        lock_offset = 0x00200000;
-                    }
-
-                    for (int i = 0; i < Programs.Fixes.size; i++)
-                    {
-                        Program.writer.Seek(Programs.Fixes.offset[i] + lock_offset, SeekOrigin.Begin);
-                        Functions.DataManager.writeData(Programs.Fixes.fixBytes[i]);
-                    }
-                    
-                    break;
-                default:
-                    break;
+                lock_offset = 0x00200000; // Knuckles Lock On
             }
+
+            if(game == 1 || game == 2) // Game compatible
+            {
+                Programs.Fixes.Initialise(game, mode, on, value, lockon, rev);
+
+                for (int i = 0; i < Programs.Fixes.size; i++)
+                {
+                    Program.writer.Seek(Programs.Fixes.offset[i] + lock_offset, SeekOrigin.Begin);
+                    Functions.DataManager.writeData(Programs.Fixes.fixBytes[i]);
+                }
+            }
+
             Program.writer.Dispose();
+        }
+
+        public int[] GameTest()
+        {
+            int gameSelection = -1;
+            int revSelection = -1;
+            int lockon = 0;
+            int offset = Datas.Games.offset;
+
+            Program.reader = new BinaryReader(File.Open(Program.ROM, FileMode.Open), Encoding.UTF8);
+            if(Program.reader.BaseStream.Length > 0x00200000)
+            {
+                lockon = 1;
+                offset += 0x00200000;
+                Functions.MessageHandler.ErrorMessage(7);
+            }
+
+            Program.reader.BaseStream.Position = offset;
+
+            Byte[] gameID = Functions.DataManager.readData(0x08);
+            Byte[] revID = Functions.DataManager.readData(0x03);
+
+            
+            Program.reader.Dispose();
+            Program.reader.Close();
+
+            // What game it is, and what Rev ?
+            if (revID.SequenceEqual(Datas.Games.rev0))
+                revSelection = 0;
+            else if (revID.SequenceEqual(Datas.Games.rev1))
+                revSelection = 1;
+            else if (revID.SequenceEqual(Datas.Games.rev2))
+                revSelection = 2;
+
+            if (gameID.SequenceEqual(Datas.Games.sonic1))
+            {
+                Functions.MessageHandler.Message("Sonic 1 can't be Randomized for now, but fixes are working.", "WARNING", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                gameSelection = 0;
+                if (revSelection != 0)
+                    Functions.MessageHandler.ErrorMessage(6);
+            }
+            else if (gameID.SequenceEqual(Datas.Games.sonic2)){
+                gameSelection = 1;
+            }
+            else if (gameID.SequenceEqual(Datas.Games.sonic3))
+            {
+                Functions.MessageHandler.Message("Sonic 3 can't be Randomized for now.", "WARNING", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                gameSelection = 2;
+            }
+            else if (gameID.SequenceEqual(Datas.Games.sonicK))
+            {
+                Functions.MessageHandler.Message("Sonic & Knuckles can't be Randomized for now.", "WARNING", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Warning);
+                gameSelection = 3;
+            }
+            else
+            {
+                Functions.MessageHandler.ErrorMessage(4);
+
+            }
+            
+
+
+            return new int[] { gameSelection, revSelection, lockon };
         }
     }
 }
