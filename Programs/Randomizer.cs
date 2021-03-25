@@ -151,13 +151,30 @@ namespace Sonic_Randomizer.Programs
         public void Fixes(int game, int mode, bool on, int value = 0, bool lockon = false)
         {
             Program.writer = new BinaryWriter(File.Open(Program.ROM, FileMode.Open), Encoding.UTF8);
+            int lock_offset = 0x00;
             switch (game)
             {
-                case 2:
+                
+                case 1: // Sonic The Hedgehog Rev 1
                     Programs.Fixes.Initialise(game, mode, on, value, lockon);
 
                     // Knuckles LockOn
-                    int lock_offset = 0x00;
+                    if (lockon)
+                    {
+                        lock_offset = 0x00200000;
+                    }
+
+                    for (int i = 0; i < Programs.Fixes.size; i++)
+                    {
+                        Program.writer.Seek(Programs.Fixes.offset[i] + lock_offset, SeekOrigin.Begin);
+                        Functions.DataManager.writeData(Programs.Fixes.fixBytes[i]);
+                    }
+
+                    break;
+                case 2: // Sonic The Hedgehog 2 Rev 2
+                    Programs.Fixes.Initialise(game, mode, on, value, lockon);
+
+                    // Knuckles LockOn
                     if (lockon)
                     {
                         lock_offset = 0x00200000;

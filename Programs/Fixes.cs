@@ -71,6 +71,21 @@ namespace Sonic_Randomizer.Programs
 
                 size = offset.Length;
             }
+            else if(game == 1)
+            {
+                if (on)
+                {
+                    fixBytes = new Byte[] { 0x5E, 0x54 };
+                }
+                else
+                {
+                    fixBytes = new Byte[] { 0x04, 0x0C };
+                }
+
+                offset = new Int32[] { 0x305, 0x30F };
+
+                size = offset.Length;
+            }
         }
         static private void StageSelectFix(int game, bool on)
         {
@@ -153,6 +168,22 @@ namespace Sonic_Randomizer.Programs
 
                 size = offset.Length;
             }
+            else if (game == 1)
+            {
+
+                if (on)
+                {
+                    fixBytes = new Byte[] { 0x2B };
+                }
+                else
+                {
+                    fixBytes = new Byte[] { 0x2A };
+                }
+
+                offset = new Int32[] { 0x398 };
+
+                size = offset.Length;
+            }
         }
 
         static private void SuperSonicFix(int game, bool on)
@@ -220,6 +251,22 @@ namespace Sonic_Randomizer.Programs
 
                 size = offset.Length;
             }
+            else if (game == 1)
+            {
+
+                if (on)
+                {
+                    fixBytes = new Byte[] {0x01, 0x4E, 0x71, 0x4E, 0x71 };
+                }
+                else
+                {
+                    fixBytes = new Byte[] {0x00, 0x67, 0x0E, 0x67, 0x22 };
+                }
+
+                offset = new Int32[] {0x310B, 0x3986, 0x3987, 0x13D8, 0x13D9 };
+
+                size = offset.Length;
+            }
         }
 
         static private void SSonicRings(int game, bool on, int rings)
@@ -252,6 +299,23 @@ namespace Sonic_Randomizer.Programs
                 }
 
                 offset = new Int32[] { 0x1B248, 0x1B249, 0x1B24A, 0x1B24B };
+
+                size = offset.Length;
+            } 
+            else if (game == 1)
+            {
+
+
+                if (on)
+                {
+                    fixBytes = new Byte[] { 0x4E, 0x71, 0x4E, 0x71 };
+                }
+                else
+                {
+                    fixBytes = new Byte[] { 0x53, 0x38, 0xFE, 0x12 };
+                }
+
+                offset = new Int32[] { 0x138A0, 0x138A1, 0x138A2, 0x138A3 };
 
                 size = offset.Length;
             }
