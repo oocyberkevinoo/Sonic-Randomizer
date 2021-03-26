@@ -465,7 +465,7 @@
             this.Controls.Add(this.btn_romselect);
             this.Controls.Add(this.txt_romselect);
             this.Name = "Form1";
-            this.Text = "Sonic Randomizer 0.3";
+            this.Text = "Sonic Randomizer 0.3.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.form_DragDrop);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.form_DragEnter);
