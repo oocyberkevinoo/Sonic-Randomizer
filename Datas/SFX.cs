@@ -14,12 +14,14 @@ namespace Sonic_Randomizer.Datas
         static public List<Byte[]> original = new List<byte[]>();
         static public int size;
         static public Int32 offset;
+        static public Byte[] testBytes;
 
 
         static public void Initialise(int game, int rev = 0)
         {
             if(game == 2)
             {
+                testBytes = new Byte[] { 0x80, 0x80, 0x80 };
                 offset = 0xFEE91;
                 list.Clear();
                 #region SFX List

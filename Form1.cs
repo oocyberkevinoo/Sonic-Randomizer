@@ -55,7 +55,7 @@ namespace Sonic_Randomizer
                     chk_rings.Enabled = false;*/
                     break;
 
-                case 2:
+                case 999:
                     switch (cb_revision.SelectedIndex)
                     {
                         /*case 0:

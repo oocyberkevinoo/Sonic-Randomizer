@@ -12,6 +12,7 @@ namespace Sonic_Randomizer.Programs
     {
         private int counter;
         private int i;
+        private Byte[] testBytes;
         private int data_size;
         private List<Byte[]> data_list;
         private List<Byte[]> overide_data_list = new List<Byte[]>();
@@ -42,6 +43,7 @@ namespace Sonic_Randomizer.Programs
                     data_list = SFX.list;
                     data_size = SFX.size;
                     data_offset = SFX.offset;
+                    testBytes = SFX.testBytes;
                     break;
                 case 2:
                     Music.Initialise(game, rev);
@@ -58,12 +60,14 @@ namespace Sonic_Randomizer.Programs
                     data_size = Music.size;
                     data_offset = Music.offset;
                     overide = Music.overide;
+                    testBytes = Music.testBytes;
                     break;
                 case 3:
                     Rings.Initialise(game, rev);
                     data_list = Rings.list;
                     data_size = Rings.size;
                     data_offset = Rings.offset;
+                    testBytes = Rings.testBytes;
                     break;
                 case 4:
                     Objects.Initialise(game, rev);
@@ -77,24 +81,28 @@ namespace Sonic_Randomizer.Programs
                     }
                     data_size = Objects.size;
                     data_offset = Objects.offset;
+                    testBytes = Objects.testBytes;
                     break;
                 case 5:
                     LevelsCyclePalet.Initialise(game, rev);
                     data_list = LevelsCyclePalet.list;
                     data_size = LevelsCyclePalet.size;
                     data_offset = LevelsCyclePalet.offset;
+                    testBytes = LevelsCyclePalet.testBytes;
                     break;
                 case 6:
                     LevelsPalet.Initialise(game, rev);
                     data_list = LevelsPalet.list;
                     data_size = LevelsPalet.size;
                     data_offset = LevelsPalet.offset;
+                    testBytes = LevelsPalet.testBytes;
                     break;
                 case 7:
                     Monitors.Initialise(game, rev);
                     data_list = Monitors.list;
                     data_size = Monitors.size;
                     data_offset = Monitors.offset;
+                    testBytes = Monitors.testBytes;
                     break;
                 default:
                     break;
@@ -110,7 +118,33 @@ namespace Sonic_Randomizer.Programs
             {
                 data_offset += 0x00200000;
             }
-            Randomize(on);
+
+            bool valid = true;
+            try
+            {
+                Program.reader = new BinaryReader(File.Open(Program.ROM, FileMode.Open), Encoding.UTF8);
+
+                if (testBytes.Length != 0 && (game == 1 || game == 2))
+                {
+                    Program.reader.BaseStream.Position = data_offset - testBytes.Length;
+                    Byte[] testedBytes = Program.reader.ReadBytes(testBytes.Length);
+                    if (!testBytes.SequenceEqual(testedBytes) && testedBytes.Length != 0)
+                    {
+                        valid = false;
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+                valid = false;
+            }
+            Program.reader.Dispose();
+            Program.reader.Close();
+
+            if (valid)
+                Randomize(on);
 
             
 

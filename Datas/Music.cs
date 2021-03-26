@@ -15,6 +15,7 @@ namespace Sonic_Randomizer.Datas
         static public int size;
         static public Int32 offset;
         static public List<int> overide = new List<int>();
+        static public Byte[] testBytes;
 
 
         static public void Initialise(int game, int rev = 0)
@@ -29,6 +30,7 @@ namespace Sonic_Randomizer.Datas
 
             if(game == 2)
             {
+                testBytes = new Byte[] { 0x78, 0x7C };
                 offset = 0xF8000;
                 list.Clear();
                 original.Clear();

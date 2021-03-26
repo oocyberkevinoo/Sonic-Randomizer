@@ -13,12 +13,14 @@ namespace Sonic_Randomizer.Datas
         static public List<Byte[]> list = new List<byte[]>();
         static public int size;
         static public Int32 offset;
+        static public Byte[] testBytes;
 
 
         static public void Initialise(int game, int rev = 0)
         {
             if(game == 2)
             {
+                testBytes = new Byte[] { 0x4E, 0xFB, 0x00, 0x02 };
                 switch (rev)
                 {
                     case 0:
