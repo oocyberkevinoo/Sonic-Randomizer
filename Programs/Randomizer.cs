@@ -150,7 +150,8 @@ namespace Sonic_Randomizer.Programs
 
         public void Fixes(int game, int mode, bool on, int value = 0, bool lockon = false, int rev = 0)
         {
-            Program.writer = new BinaryWriter(File.Open(Program.ROM, FileMode.Open), Encoding.UTF8);
+            
+            Program.reader = new BinaryReader(File.Open(Program.ROM, FileMode.Open), Encoding.UTF8);
             int lock_offset = 0x00;
             if (lockon)
             {
@@ -159,16 +160,46 @@ namespace Sonic_Randomizer.Programs
 
             if(game == 1 || game == 2) // Game compatible
             {
-                Programs.Fixes.Initialise(game, mode, on, value, lockon, rev);
 
-                for (int i = 0; i < Programs.Fixes.size; i++)
+                Programs.Fixes.Initialise(game, mode, on, value, lockon, rev);
+                bool valid = true;
+                try
                 {
-                    Program.writer.Seek(Programs.Fixes.offset[i] + lock_offset, SeekOrigin.Begin);
-                    Functions.DataManager.writeData(Programs.Fixes.fixBytes[i]);
+                    if(Programs.Fixes.offset != null)
+                    {
+                        Program.reader.BaseStream.Position = (Programs.Fixes.offset[0] + lock_offset) - Programs.Fixes.testBytes.Length;
+                        Byte[] testedBytes = Program.reader.ReadBytes(Programs.Fixes.testBytes.Length);
+                        if (!Programs.Fixes.testBytes.SequenceEqual(testedBytes) && testedBytes.Length != 0)
+                        {
+                            valid = false;
+                        }
+                    }
+                    
                 }
+                catch (Exception)
+                {
+
+                    valid = false;
+                }
+                
+                Program.reader.Dispose();
+                Program.reader.Close();
+
+                Program.writer = new BinaryWriter(File.Open(Program.ROM, FileMode.Open), Encoding.UTF8);
+                if (valid)
+                {
+                    for (int i = 0; i < Programs.Fixes.size; i++)
+                    {
+                    
+                            Program.writer.Seek(Programs.Fixes.offset[i] + lock_offset, SeekOrigin.Begin);
+                            Functions.DataManager.writeData(Programs.Fixes.fixBytes[i]);
+                    }
+                }
+
             }
 
             Program.writer.Dispose();
+            Program.writer.Close();
         }
 
         public int[] GameTest()

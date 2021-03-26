@@ -9,6 +9,7 @@ namespace Sonic_Randomizer.Programs
 {
     static class Fixes
     {
+        static public Byte[] testBytes;
         static public Byte[] fixBytes;
         static public int size;
         static public Int32[] offset;
@@ -62,14 +63,14 @@ namespace Sonic_Randomizer.Programs
                 if (on)
                 {
 
-                    fixBytes = new Byte[] { 0x5E, 0x54 };
+                    fixBytes = new Byte[] { 0x5E, 0x54 }; // Bytes to patch with
                 }
                 else
                 {
-                    fixBytes = new Byte[] { 0xF4, 0x0C };
+                    fixBytes = new Byte[] { 0xF4, 0x0C }; // Bytes to restore with
                 }
-
-                offset = new Int32[] { 0x311, 0x31B };
+                testBytes = new Byte[] { 0x01, 0x66 }; // Bytes to test before the offset to check integrity of the file
+                offset = new Int32[] { 0x311, 0x31B }; // Offset where to apply bytes
             }
             else if((game == 1 || game == 2) && rev == 0) // Sonic 1 Rev 0 AND Sonic 2 Rev 0
             {
@@ -81,7 +82,7 @@ namespace Sonic_Randomizer.Programs
                 {
                     fixBytes = new Byte[] { 0x04, 0x0C };
                 }
-
+                testBytes = new Byte[] { 0xC0, 0x00 };
                 offset = new Int32[] { 0x305, 0x30F };
             }
 
@@ -100,7 +101,7 @@ namespace Sonic_Randomizer.Programs
                 {
                     fixBytes = new Byte[] { 0x67, 0x10, 0x67, 0x22 };
                 }
-
+                testBytes = new Byte[] { 0xFF, 0xD0 };
                 switch (rev)
                 {
                     case 0:
@@ -137,10 +138,12 @@ namespace Sonic_Randomizer.Programs
                 switch (rev)
                 {
                     case 0:
+                        testBytes = new Byte[] { 0x13, 0x64 };
                         offset = new Int32[] { 0x1ABA6, 0x1ABA7, 0x1ABA8, 0x1ABA9, 0x1ABAA, 0x1ABAB, 0x1ABAC, 0x1ABAD, 0x1ABAE, 0x1ABAF,
                                         0x1D835, 0x1D836, 0x1D837};
                         break;
                     case 1:
+                        testBytes = new Byte[] { 0x13, 0x70 };
                         offset = new Int32[] { 0x1AB9A, 0x1AB9B, 0x1AB9C, 0x1AB9D, 0x1AB9E, 0x1AB9F, 0x1ABA0, 0x1ABA1, 0x1ABA2, 0x1ABA3,
                                         0x1D845, 0x1D846, 0x1D847};
                         break;
@@ -167,6 +170,7 @@ namespace Sonic_Randomizer.Programs
                 {
                     fixBytes = new Byte[] { 0x53, 0x78, 0xFE, 0x20 };
                 }
+                testBytes = new Byte[] { 0xFE, 0x1D };
                 switch (rev)
                 {
                     case 0:
@@ -198,6 +202,7 @@ namespace Sonic_Randomizer.Programs
                 {
                     fixBytes = new Byte[] { 0x34, 0x14 };
                 }
+                
 
                 switch (rev)
                 {
@@ -231,6 +236,8 @@ namespace Sonic_Randomizer.Programs
 
                 size = offset.Length;
             }
+
+            testBytes = new Byte[] { 0x60, 0x00 };
         }
 
         static private void SuperSonicFix(int game, bool on, int rev = 0)
@@ -258,18 +265,19 @@ namespace Sonic_Randomizer.Programs
                 else
                 {
                     fixBytes = new Byte[] { 0x31, 0xC0, 0xFF, 0xB0, 0x21, 0xC0, 0xFF, 0xB2,
-                                            0x11, 0xFC, 0x00, 0x03/*, 0xFE, 0xC6*/};
+                                            0x11, 0xFC, 0x00, 0x03};
                 }
 
+                testBytes = new Byte[] { 0xFE, 0x16 };
                 switch (rev)
-                {
+                { 
                     case 0:
                         offset = new Int32[] { 0x3CDC, 0x3CDD, 0x3CDE, 0x3CDF, 0x3CE0, 0x3CE1, 0x3CE2, 0x3CE3,
                                         0x9488, 0x9489, 0x948A, 0x948B};
                         break;
                     case 1:
                         offset = new Int32[] { 0x3CE8, 0x3CE9, 0x3CEA, 0x3CEB, 0x3CEC, 0x3CED, 0x3CEE, 0x3CEF,
-                                        0x9494, 0x9497, 0x9498, 0x9499};
+                                        0x9494, 0x9495, 0x9496, 0x9497};
                         break;
 
                     default:
@@ -308,6 +316,7 @@ namespace Sonic_Randomizer.Programs
                     fixBytes = new Byte[] { 0x00 };
                 }
 
+                
                 switch (rev)
                 {
                     case 0:
@@ -340,6 +349,8 @@ namespace Sonic_Randomizer.Programs
 
                 size = offset.Length;
             }
+
+            testBytes = new Byte[] { 0xFC, 0x00 };
         }
 
         static private void SSonicRings(int game, bool on, int rings, int rev = 0)
@@ -350,10 +361,10 @@ namespace Sonic_Randomizer.Programs
 
                 fixBytes = new Byte[] { (Byte) rings};
 
-                
+                testBytes = new Byte[] { 0x78, 0x00 };
                 switch (rev)
                 {
-                    case 0:
+                    case 0: 
                         offset = new Int32[] { 0x1AB55 };
                         break;
                     case 1:
@@ -414,6 +425,8 @@ namespace Sonic_Randomizer.Programs
 
                 size = offset.Length;
             }
+            testBytes = new Byte[] { 0xFE, 0x1C };
+
         }
 
     }
